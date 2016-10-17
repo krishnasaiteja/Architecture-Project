@@ -60,21 +60,8 @@ static int imm;
 static int aluResult;
 static int branchTarget;
 static int LdResult;
-//static int imm;
-
-
-
-
-
 
 int ui=0;
-
-
-
-
-
-
-
 
 void run_simplesim() {
 int io=0;
@@ -89,7 +76,8 @@ int io=0;
     write_back();
 
   }
-
+for(int i=0;i<16;i++)
+ cout<<"REGISTER "<<i<<" is "<<R[i]<<endl;
 }
 
 // it is used to set the reset values
@@ -136,7 +124,7 @@ void write_data_memory() {
   }
 
   for(i=0; i < 4000; i = i+4){
-    fprintf(fp, "%x %x\n", i, read_word(MEM, i));
+    fprintf(fp, "%d %x\n", i, read_word(MEM, i));
   }
   fclose(fp);
 }
@@ -514,7 +502,7 @@ void execute()
 	{
 	cout<<"STORE "<<endl;
 	aluResult=A+B;
-	cout<<"A IS "<<R[13]<<endl;
+	//cout<<"A IS "<<R[13]<<endl;
 	}
 	
 	else if(isLsl)
@@ -538,7 +526,6 @@ void execute()
 	aluResult=b;
 	cout<<"ASR "<<endl;
 	}
-		cout<<"ALU RESULT IS "<<aluResult<<endl;   
 	
 }
 
@@ -580,7 +567,7 @@ void write_back()
 	{
 	y=((instruction_word & 0x03c00000)>>22);
 	R[y]=result;
-  	cout<<"Dest "<<y<<endl;  
+  	 
   	}	
 	}
 }
@@ -597,4 +584,3 @@ void write_word(char *mem, unsigned int address, unsigned int data) {
   data_p = (int*) (mem + address);
   *data_p = data;
 }
-
